@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# replace the original rancid.conf with a file that includes all files in /root/configs which is exposed as a volume by docker
+# Replace the original rancid.conf with a file that includes all files in /root/configs which is exposed as a volume by docker
 # Some mandatory settings required for the container to work are then applied
 cat << 'EOF' > /etc/rancid/rancid.conf
 for config in /root/configs/* ; do
@@ -8,6 +8,8 @@ for config in /root/configs/* ; do
     . "$config"
   fi
 done
+
+# Setup environment
 TERM=network;export TERM
 PATH=/usr/lib/rancid/bin:/usr/bin:/usr/sbin:/bin:.:/usr/local/bin:/usr/bin; export PATH
 LC_COLLATE="POSIX"; export LC_COLLATE
@@ -30,4 +32,3 @@ EOF
 
 # Set restrictive permissions for the hidden .cloginrc
 chmod 700 /root/.cloginrc
-
