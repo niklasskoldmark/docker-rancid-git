@@ -13,7 +13,7 @@ RUN apt-get update && \
         liblockfile-simple-perl \
         libperl4-corelibs-perl \
         postfix \
-        telnet
+        telnet \
     && \
     apt-get clean && \
     rm -rf /tmp/* && \
@@ -29,10 +29,10 @@ RUN git clone git://github.com/dotwaffle/rancid-git /srv/rancid-git && \
 
 VOLUME /var/lib/rancid/data /var/lib/rancid/logs /var/lib/rancid/tmp /root/secrets /root/configs
 
-COPY ["setup.sh", "/setup.sh"]
+COPY ["setup.sh", "/srv/setup.sh"]
 
-RUN /setup.sh && rm /setup.sh
+RUN /srv/setup.sh && rm /srv/setup.sh
 
-COPY ["entrypoint.sh", "/entrypoint.sh"]
+COPY ["entrypoint.sh", "/srv/entrypoint.sh"]
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/srv/entrypoint.sh"]
